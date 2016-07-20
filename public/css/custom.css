@@ -1,0 +1,36 @@
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+    box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+    background-color: #104777 !important;
+}
+.add-on:hover{
+    cursor: pointer;
+}
+
+/*.landing_background{
+    position: absolute;
+    top: -5px;
+    left: -1px;
+    margin:0px;
+    padding: 0px;
+}
+.landing_background img{
+    max-width: 100%;
+    background-size: cover; 
+    background-repeat: no-repeat;
+}*/
+

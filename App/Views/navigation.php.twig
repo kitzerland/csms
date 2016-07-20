@@ -1,0 +1,50 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">Student Management System</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav leftNavigation">
+
+            <!--registrar area-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Student Registration <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="studentRegistration.php"> Register a Student</a></li>
+                        <li><a href="editStudentRegistration.php"> Edit Registration Details</a></li>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Student Migration <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="migrate.php"> Migrate Students</a></li>
+                    </ul>
+                </li>
+            <!--end of registrar area-->
+
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right navbar-user">
+
+            <li class="dropdown user-dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span class="user_iName"></span> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="accountSettings.php"><i class="fa fa-gear"></i> Settings</a></li>
+                    <li><a href="login.php"><i class="fa fa-power-off"></i> Log Out</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+
