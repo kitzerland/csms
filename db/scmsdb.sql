@@ -68,10 +68,10 @@ DELETE FROM `tblstock`;
 CREATE TABLE IF NOT EXISTS `tblstockmanager` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `ItemID` int(11) NOT NULL DEFAULT '0',
-  `Credit` int(11) NOT NULL DEFAULT '0',
+  `Credit` decimal(10,2) NOT NULL DEFAULT '0.00',
   `Qty` int(11) NOT NULL DEFAULT '0',
-  `InOutCategory` int(11) NOT NULL DEFAULT '0',
-  `Debt` int(11) NOT NULL DEFAULT '0',
+  `TransactionCategory` int(11) NOT NULL DEFAULT '0',
+  `Debt` decimal(10,2) NOT NULL DEFAULT '0.00',
   `Date` date NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -127,6 +127,8 @@ CREATE TABLE IF NOT EXISTS `tblstudents` (
   `GuardianName` varchar(100) NOT NULL,
   `PhotoURL` varchar(300) DEFAULT NULL,
   `GuardianContact` varchar(100) NOT NULL,
+  `ContactNumber` varchar(50) DEFAULT NULL,
+  `Email` varchar(50) DEFAULT NULL,
   `RegisteredDate` date NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
