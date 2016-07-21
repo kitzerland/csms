@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Student Management System</title>
+
+
+        <link href="css/bootstrap.css" rel="stylesheet">
+
+        <!-- Add custom CSS here -->
+        <link href="css/sb-admin.css" rel="stylesheet">
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+        <style>
+            body{
+                margin:0px; padding: 0px;
+                background-image: url('./img/landing2.jpg');
+            }
+
+            .login_area{
+                position: absolute;
+                top:0; bottom: 0; left: 0; right: 0;
+                margin: auto;
+                padding: 30px 25px 10px 30px;
+                background: rgba(0, 0, 0, 0.4); 
+                max-height: 300px;
+            }
+        </style>
+
+        <!--Scripts-->
+        <script src="js/jquery-1.10.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/notify.js"></script>
+    </head>
+
+    <body>
+
+        <div class="jumbotron col-md-5 login_area">
+            <div class="form-group">
+                <h3 class="text-center" style="color:#a6a6a6;">SYSTEM LOGIN</h3>
+            </div>
+            <div class="form-group">
+                <input type="text" name="username" class="form-control username" placeholder="Enter username" autofocus>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control password" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-primary login" value="Login">
+            </div>
+        </div>
+
+
+        <script>
+
+            $('.username').select();
+            $(document).keydown(function (e) {
+                if (e.keyCode === 13) {
+                    login();
+                }
+            });
+            $('.login').click(function () {
+                login();
+            });
+
+            function login() {
+                var username = $('.username').val();
+                var password = $('.password').val();
+
+                if (username.length > 0) {
+                    $.post('login', {username: username, password: password}, function (e) {
+                        if (e !== undefined && e !== "0" && e !== 0 && Object.keys(e).length > 1) {
+                            if(e.ok){
+                                window.location.replace('/');
+                            }else{
+                                $.notify.default(e.msg);
+                            }
+                        } else {
+                            $.notify.default('<b>Invalid Username or Password!</b>');
+                            $('.username').select();
+                        }
+                    }, 'json');
+                } else {
+                    $.notify.default('<b>Username Cannot be Empty!</b>');
+                }
+            }
+
+        </script>
+    </body>
+</html>

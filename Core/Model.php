@@ -20,6 +20,7 @@ abstract class Model {
 
             return $db;
         }
+        return $db;
     }
 
 }

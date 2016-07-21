@@ -34,7 +34,9 @@ class View {
             $loader = new \Twig_Loader_Filesystem('../App/Views');
             $twig = new \Twig_Environment($loader);
         }
-        
+        if(session_status() == PHP_SESSION_ACTIVE){
+            $args['session'] = $_SESSION;
+        }
         echo $twig->render($template, $args);
     }
 
