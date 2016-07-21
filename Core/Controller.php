@@ -1,11 +1,12 @@
 <?php
 
 namespace Core;
+use Core\Model;
 
 /**
  * Base controller
  */
-class Controller {
+class Controller extends \Core\Model{
 
     /**
      * Parameters from the matched route

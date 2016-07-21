@@ -20,6 +20,12 @@ spl_autoload_register(function($class) {
         require $file;
     }
 });
+/**
+ * Session start
+ */
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 /**
  * Error and Exception handling
@@ -43,7 +49,11 @@ $router = new Core\Router();
 //$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
 //$router->post('PostRequests/index', ['controller' => 'PostRequests', 'action' => 'index']);
 
+$router->add('login', ['controller' => 'LoginController', 'action' => 'index', 'namespace' => 'User']);
 $router->add('', ['controller' => 'HomeController', 'action' => 'index']);
+
+$router->post('login', ['controller' => 'LoginController', 'action' => 'login', 'namespace' => 'User']);
+
 
 
 $router->dispatch($_SERVER['QUERY_STRING']);

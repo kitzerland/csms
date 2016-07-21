@@ -115,7 +115,6 @@ class Router {
                 $controller = $this->params['controller'];
                 $controller = $this->convertToStudlyCaps($controller);
                 $controller = $this->getNamespace() . $controller;
-
                 if (class_exists($controller)) {
                     $controller_object = new $controller($this->params);
 
@@ -183,10 +182,15 @@ class Router {
     protected function getNamespace() {
         $namespace = 'App\Controllers\\';
 
-        if (array_key_exists('namespace', $this->params)) {
-            $namespace .= $this->params['namespace'] . '\\';
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (array_key_exists('namespace', $this->params)) {
+                $namespace .= $this->params['namespace'] . '\\';
+            }
+        } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (array_key_exists('namespace', $this->postParams)) {
+                $namespace .= $this->postParams['namespace'] . '\\';
+            }
         }
-
         return $namespace;
     }
 
