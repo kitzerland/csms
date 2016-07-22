@@ -49,10 +49,20 @@ $router = new Core\Router();
 //$router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
 //$router->post('PostRequests/index', ['controller' => 'PostRequests', 'action' => 'index']);
 
+/**
+ * Get requests
+ */
 $router->add('login', ['controller' => 'LoginController', 'action' => 'index', 'namespace' => 'User']);
 $router->add('', ['controller' => 'HomeController', 'action' => 'index']);
+$router->add('index', ['controller' => 'HomeController', 'action' => 'index']);
+$router->add('register', ['controller' => 'RegistrationController', 'action' => 'index', 'namespace' => 'Student']);
 
+
+/**
+ * Post Requests
+ */
 $router->post('login', ['controller' => 'LoginController', 'action' => 'login', 'namespace' => 'User']);
+$router->post('register', ['controller' => 'RegistrationController', 'action' => 'register', 'namespace' => 'Student']);
 
 
 

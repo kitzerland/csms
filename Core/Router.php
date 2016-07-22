@@ -131,8 +131,8 @@ class Router {
                 }
             } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $postData = filter_input_array(INPUT_POST);
-                foreach ($postData as $key => $value) {
-                    $postData[htmlspecialchars($key)] = htmlspecialchars($value);
+                if (!empty($postData)) {
+                    $postData = $this->htmlspecial_array($postData);
                 }
 
                 $controller = $this->postParams['controller'];
@@ -156,6 +156,17 @@ class Router {
         } else {
             throw new \Exception("No route matched", 404);
         }
+    }
+
+    protected function htmlspecial_array($arr) {
+        foreach ($arr as $k => $v) {
+            if (!is_array($v)) {
+                $arr[$k] = htmlspecialchars($v);
+            } else {
+                $this->htmlspecial_array($v);
+            }
+        }
+        return $arr;
     }
 
     protected function convertToStudlyCaps($string) {

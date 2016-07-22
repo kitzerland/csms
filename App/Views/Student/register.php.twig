@@ -1,0 +1,103 @@
+{% extends "base.php.twig" %}
+{% block navigation %}{% include "navigation.php.twig" %}{% endblock %}
+{% block body %}
+
+    <fieldset class="scheduler-border col-md-12 form1">
+        <legend class="scheduler-border"><h3><small>Register A Student</small></h3></legend>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-3">First Name</label>
+                <div class="col-md-6">
+                    <input type="text" name="fname" class="form-control form-data">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Last Name</label>
+                <div class="col-md-6">
+                    <input type="text" name="lname" class="form-control form-data">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Address</label>
+                <div class="col-md-6">
+                    <textarea class="form-control form-data" rows="2" name="addr" style="resize: vertical; min-height:50px;"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Contact No</label>
+                <div class="col-md-6">
+                    <input type="text" name="contact" class="form-control form-data">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Email</label>
+                <div class="col-md-6">
+                    <input type="text" name="email" class="form-control form-data">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3">Upload Photo</label>
+                <div class="col-md-6">
+                    <input type="text" name="photo" class="form-control form-data">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Guardian Name</label>
+                <div class="col-md-6">
+                    <input type="text" name="gname" class="form-control form-data">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Guardian Contact No</label>
+                <div class="col-md-6">
+                    <input type="text" name="gcontact" class="form-control form-data">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-2">
+                    <button class="btn btn-primary btn-block register">Register</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(function () {
+
+            $('input[name="fname"]').select();
+            $(document).keydown(function (e) {
+                if (e.keyCode === 13) {
+                    register();
+                }
+            });
+            $('.register').click(function () {
+                register();
+            });
+
+            function register() {
+                var form = $('.form1').formobject();
+                var conditions = {
+                    fname: 'important|name', lname: 'important|name', addr: 'important|address',
+                    contact: 'telephone', email: 'email', gname: 'important|name', gcontact: 'telephone'
+                };
+
+                if ($('.form1').validate(conditions)) {
+                    $.post('register', {form: form}, function (e) {
+                        if (e !== undefined && e !== "0" && e !== 0) {
+                            $.notify.success("<b>Student Registered Successfully!</b>");
+                        } else {
+                            $.notify.error("<b>Registration Failed! Verify Information Provided!</b>")
+                        }
+                    }, 'json');
+                }
+            }
+
+        });
+    </script>
+{% endblock %}
