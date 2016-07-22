@@ -260,7 +260,8 @@ $(function ($) {
 //                var logic = $(this).offset().top - $('.custom-validation-message').outerHeight() - 3 - $(window).scrollTop();
 //                console.log(this.getBoundingClientRect().top, $(window).scrollTop(), $(this).offset().top);
                 
-                $('.custom-validation-message').offset({top: $(this).offset().top - $('.custom-validation-message').outerHeight() - 3 - $(window).scrollTop(), left: $(this).offset().left});
+                // $('.custom-validation-message').offset({top: $(this).offset().top - $('.custom-validation-message').outerHeight() - 3 - $(window).scrollTop(), left: $(this).offset().left});
+                $('.custom-validation-message').offset({top: $(this).offset().top - $('.custom-validation-message').outerHeight() - 3 , left: $(this).offset().left});
                 $('.custom-validation-message').fadeIn(300).delay(1000).fadeOut(500);
             });
             $(trackedElements).mouseleave(function (e) {
