@@ -253,6 +253,7 @@ $(function ($) {
                 $('body').append(div);
 
 
+
 //                var scrollBottom = $(window).scrollTop() + $(window).height();
 //                var scb = $(document).height() - $(window).height() - $(window).scrollTop();
 //                var gap = Math.abs($(document).scrollTop() - scb);
