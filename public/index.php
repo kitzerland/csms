@@ -56,6 +56,8 @@ $router->add('login', ['controller' => 'LoginController', 'action' => 'index', '
 $router->add('', ['controller' => 'HomeController', 'action' => 'index']);
 $router->add('index', ['controller' => 'HomeController', 'action' => 'index']);
 $router->add('student/register', ['controller' => 'RegistrationController', 'action' => 'index', 'namespace' => 'Student']);
+$router->add('student/achievement', ['controller' => 'AchievementController', 'action' => 'index', 'namespace' => 'Student']);
+$router->add('student/payment', ['controller' => 'PaymentController', 'action' => 'index', 'namespace' => 'Student']);
 
 
 /**
@@ -63,6 +65,8 @@ $router->add('student/register', ['controller' => 'RegistrationController', 'act
  */
 $router->post('login', ['controller' => 'LoginController', 'action' => 'login', 'namespace' => 'User']);
 $router->post('student/register', ['controller' => 'RegistrationController', 'action' => 'register', 'namespace' => 'Student']);
+$router->post('student/search', ['controller' => 'SearchController', 'action' => 'index', 'namespace' => 'Student']);
+$router->post('student/getResult', ['controller' => 'SearchController', 'action' => 'getResult', 'namespace' => 'Student']);
 
 
 
