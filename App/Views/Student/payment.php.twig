@@ -72,8 +72,22 @@
 
             $('.save').click(function () {
                 payment();
-                
             });
+
+
+
+            function redirecttoinv() {
+                var form = $('.form1').formobject();
+                var id = $('.selectedID').val();
+                form['id'] = id;
+
+                $.post('/payment/setcookie', form, function (data) {
+                    if (data) {
+                       window.location.replace("/student/invoice");
+                    }
+                });
+
+            }
 
             function payment() {
                 var form = $('.form1').formobject();
@@ -84,6 +98,8 @@
                         $.post('/student/payment', {form: form}, function (e) {
                             if (e) {
                                 $.notify.success("<b>Successfully Saved!</b>");
+
+                                redirecttoinv();
                                 cleartextbox();
                             } else {
                                 $.notify.error("<b>Failed!</b>");
@@ -94,7 +110,7 @@
                     $.notify.error("<b>Please Select a Student!</b>");
                 }
             }
-            
+
             function cleartextbox() {
                 $('input').each(function () {
                     $(this).val("")

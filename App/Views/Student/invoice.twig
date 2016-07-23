@@ -1,0 +1,61 @@
+
+{% extends "base.invoice.twig" %}
+
+{% block body %}
+
+    <div class="header" > <h2> Milinda Chess Institute </h2> </div>
+
+    <div class="header-info text-right ">
+        <h2> Invoice Number:  </h2>
+        <p> <span class="inv-label" > Date:</span> <span class="nowdate" ></span> </p>
+    </div>
+    
+    <div class="body-info">
+        <table class="table table-bordered">
+            <thead> <tr> <td> Name  </td> <td> Amount </td>  </tr>  </thead>
+            <tbody> <tr> <td> Class Fees </td>  <td class="fees-amount">  </td>  <tr> </tbody>
+        </table>
+        
+        <h3 class="text-right" >Total: <span class="fees-total"></span>  </h3>
+    </div>
+    
+{% endblock %}
+
+{% block css %}
+
+    <style>
+        .header{
+            border: 1px solid black;
+            background-color:gray;
+            color:white;
+            padding:20px;
+        }
+       
+        .inv-label{
+            color:black;
+            
+        }
+        
+    </style>
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+        $('.nowdate').html(new Date().toDateString());
+
+        $.post('/payment/getcookie', function (data) {
+            data = $.parseJSON(data);
+            $('.fees-amount').html(data['amount'].toString() + " /="  );
+            
+            $('.fees-total').html(data['amount'].toString() + " /=");
+            
+            window.print();
+
+        });
+
+    </script>
+
+{% endblock %}

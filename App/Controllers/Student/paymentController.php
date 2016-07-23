@@ -21,4 +21,18 @@ class PaymentController extends \Core\Controller {
     public function payment(){
         echo json_encode(PaymentModel::payment($this->route_params['form']));
     }
+    
+    public function setCookie(){
+        $rout_param = $this->route_params;
+               
+        setcookie('id', $rout_param['id']);
+        setcookie('amount',  $rout_param['amount']);
+        setcookie('comment', $rout_param['comment']);
+  
+        echo true;         
+    }
+    
+    public function getCookie(){
+        echo json_encode($_COOKIE);
+    }
 }

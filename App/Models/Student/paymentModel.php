@@ -12,6 +12,7 @@ class PaymentModel extends \Core\Model {
                 . "(`StudentID`, `Credit`, `Comment`, `Date`) VALUES "
                 . "(:id, :amount, :comment, '{$datetime}');");
         $count = $query->execute($params);
+        
         if ($count == "1") {
             return true;
         } else {
