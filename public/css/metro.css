@@ -4,7 +4,7 @@
     position: absolute;
     top:0; bottom: 0; left: 0; right: 0;
     margin: auto;
-    min-width: 800px;
+    min-width: 850px;
 }
 .metro_wrapper .title_row{
     position: relative;
@@ -48,22 +48,24 @@
 .tile .icon{
     padding-top: 5px;
     padding-left: 5px;
-    width: 65px;
+    width: 5vw;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 25px;
     text-align: center;
 }
+
 .tile .icon i{
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 55px;
+    font-size: 4vw;
 }
+
 .tile .message{
     position: absolute;
-    left:65px;
+    left:5vw;
     top: 0;
     right: 0;
     bottom: 25px;
