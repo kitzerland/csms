@@ -23,5 +23,10 @@ class LoginController extends \Core\Controller {
             echo json_encode(['ok' => 0, 'msg' => '<b>Invalid Username or Password!</b>']);
         }
     }
+    
+    public function logout(){
+        LoginModel::destroySession();
+        header('location: \login');
+    }
 
 }

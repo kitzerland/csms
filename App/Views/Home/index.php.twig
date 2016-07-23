@@ -41,7 +41,7 @@
                     <h1>WELCOME</h1>
                 </div>
                 <div class="col-md-2 pull-right">
-                    <i class="fa fa-user pull-right"><span> Logout</span></i>
+                    <i class="fa fa-user pull-right"><a href="/logout"><span> Logout</span></a></i>
                 </div>
             </div>
             <div class="tiles_wrapper col-md-12">
@@ -77,6 +77,21 @@
 
         <script>
             $(function () {
+                var colors = [];
+                $('.tile .content').each(function () {
+                    colors[$('.content').index($(this))] = $(this).css("background-color");
+                });
+
+                function shadeRGBColor(color, percent) {
+                    var f = color.split(","), t = percent < 0 ? 0 : 255, p = percent < 0 ? percent * -1 : percent, R = parseInt(f[0].slice(4)), G = parseInt(f[1]), B = parseInt(f[2]);
+                    return "rgb(" + (Math.round((t - R) * p) + R) + "," + (Math.round((t - G) * p) + G) + "," + (Math.round((t - B) * p) + B) + ")";
+                }
+                $('.tile .content').mouseover(function () {
+                    $(this).css({backgroundColor: shadeRGBColor(colors[$('.content').index($(this))], -0.1)});
+                });
+                $('.tile .content').mouseleave(function () {
+                    $(this).css({backgroundColor: colors[$('.content').index($(this))]});
+                });
 
             });
         </script>

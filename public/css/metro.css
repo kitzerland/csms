@@ -5,12 +5,23 @@
     top:0; bottom: 0; left: 0; right: 0;
     margin: auto;
     min-width: 850px;
+    min-height: 600px;
 }
+
+
 .metro_wrapper .title_row{
     position: relative;
     height: 80px;
     color: #c7c7c7;
 }
+.title_row a{
+    color: #c7c7c7;
+}
+.title_row a:hover{
+    text-decoration: none;
+    color: #a2a2a2;
+}
+
 .metro_wrapper .title_row div{
     position: relative;
     top: 50%;

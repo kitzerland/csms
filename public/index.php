@@ -53,6 +53,7 @@ $router = new Core\Router();
  * Get requests
  */
 $router->add('login', ['controller' => 'LoginController', 'action' => 'index', 'namespace' => 'User']);
+$router->add('logout', ['controller' => 'LoginController', 'action' => 'logout', 'namespace' => 'User']);
 $router->add('', ['controller' => 'HomeController', 'action' => 'index']);
 $router->add('index', ['controller' => 'HomeController', 'action' => 'index']);
 $router->add('student/register', ['controller' => 'RegistrationController', 'action' => 'index', 'namespace' => 'Student']);

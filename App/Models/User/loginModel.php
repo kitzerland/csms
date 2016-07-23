@@ -37,4 +37,8 @@ class LoginModel extends \Core\Model {
         }
     }
 
+    public static function destroySession() {
+        session_destroy();
+    }
+
 }
