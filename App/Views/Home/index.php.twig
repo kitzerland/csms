@@ -1,9 +1,85 @@
-{% extends "base.php.twig" %}
-{% block navigation %}{% include "navigation.php.twig" %}{% endblock %}
-{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <h1>Welcome</h1>
+        <title>Student Management System</title>
 
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/metro.css">
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
-{% endblock %}
+        <!-- Add custom CSS here -->
+        <style>
+            body{
+                margin:0px; padding: 0px;
+                background-image: url('./img/landing2.jpg');
+            }
+
+            .login_area{
+                position: absolute;
+                top:0; bottom: 0; left: 0; right: 0;
+                margin: auto;
+                padding: 30px 25px 10px 30px;
+                background: rgba(0, 0, 0, 0.4); 
+                max-height: 300px;
+            }
+        </style>
+
+        <!--Scripts-->
+        <script src="js/jquery-1.10.2.js"></script>
+        <script src="js/bootstrap.js"></script>
+    </head>
+
+    <body>
+        <div class="metro_wrapper clearfix row">
+            <div class="title_row col-md-12">
+                <div class="col-md-3 pull-left">
+                    <h1>WELCOME</h1>
+                </div>
+                <div class="col-md-2 pull-right">
+                    <i class="fa fa-user pull-right"><span> Logout</span></i>
+                </div>
+            </div>
+            <div class="tiles_wrapper col-md-12">
+                <div class="tile">
+                    <a href="/student/register">
+                        <div class="content" style="background-color: #f1461e;">
+                            <div class="icon"><i class="fa fa-group fa-5x"></i></div>
+                            <div class="title">STUDENT MANAGEMENT</div>
+                            <div class="message">Register a Student</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="tile">
+                    <a href="/student/achievement">
+                        <div class="content" style="background-color: #0088cc;">
+                            <div class="icon"><i class="fa fa-bar-chart-o fa-5x"></i></div>
+                            <div class="title">STUDENT MANAGEMENT</div>
+                            <div class="message">Achivements</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="tile">
+                    <a href="/student/payment">
+                        <div class="content" style="background-color: #41bb19;">
+                            <div class="icon"><i class="fa fa-usd fa-5x"></i></div>
+                            <div class="title">STUDENT MANAGEMENT</div>
+                            <div class="message">Payments</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+
+            });
+        </script>
+    </body>
+</html>
 

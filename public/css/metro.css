@@ -1,0 +1,72 @@
+.metro_wrapper{
+    width: 90vw;
+    height: 90vh;
+    position: absolute;
+    top:0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+    min-width: 800px;
+}
+.metro_wrapper .title_row{
+    position: relative;
+    height: 80px;
+    color: #c7c7c7;
+}
+.metro_wrapper .title_row div{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.metro_wrapper .tiles_wrapper{
+    position: absolute;
+    top: 80px;
+    bottom:0px;
+    left: 0px;
+    right: 0px;
+}
+.tile{
+    width: 25%;
+    float: left;
+    height: 25%;
+    padding: 5px;
+}
+.tile .content{
+    position: relative;
+    height: 100%;
+    color: #f0f0f0;
+}
+.tile .title{
+    position: absolute;
+    padding: 0px 5px 0px 5px;
+    height: 25px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.tile .icon{
+    padding-top: 5px;
+    padding-left: 5px;
+    width: 65px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 25px;
+    text-align: center;
+}
+.tile .icon i{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 55px;
+}
+.tile .message{
+    position: absolute;
+    left:65px;
+    top: 0;
+    right: 0;
+    bottom: 25px;
+    padding: 5px 5px 5px 10px;
+    font-family: "Courier New", Courier, monospace;
+}
