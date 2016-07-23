@@ -1,0 +1,237 @@
+{% extends "base.php.twig" %}
+{% block navigation %}{% include "navigation.php.twig" %}{% endblock %}
+{% block body %}
+
+    <fieldset class="scheduler-border col-md-12">
+        <legend class="scheduler-border"><h3><small>Search A Student (ID/Name)</small></h3></legend>
+
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Search</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control search">
+                    <input type="hidden" class="selectedID">
+                </div>
+            </div>
+            <style>
+                .resultSummary tr th{
+                    width: 100px !important;
+                }
+            </style>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    <table class="table table-responsive table-bordered table-condensed resultSummary">
+                        <tr><th>ID</th><td class="id"></td></tr>
+                        <tr><th>First Name</th><td class="fname"></td></tr>
+                        <tr><th>Last Name</th><td class="lname"></td></tr>
+                        <tr><th>Address</th><td class="addr"></td></tr>
+                        <tr><th>Contact TP</th><td class="contact"></td></tr>
+                        <tr><th>Email</th><td class="email"></td></tr>
+                        <tr><th>Guardian Name</th><td class="gname"></td></tr>
+                        <tr><th>Guardian TP</th><td class="gcontact"></td></tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <fieldset class="scheduler-border col-md-12 form1">
+        <legend class="scheduler-border"><h3><small>Payment</small></h3></legend>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Amount</label>
+                <div class="col-md-4">
+                    <input type="text" name="amount" class="form-control form-data">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Comment</label>
+                <div class="col-md-8">
+                    <textarea class="form-control form-data" rows="3" name="comment" style="resize: vertical; min-height:50px;"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-2">
+                    <button class="btn btn-primary btn-block save">Save</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function () {
+            $('.search').select();
+
+            $('.save').click(function () {
+                payment();
+            });
+
+            function payment() {
+                var form = $('.form1').formobject();
+                if ($('.selectedID').val() !== "") {
+                    form.id = $('.selectedID').val();
+                    var conditions = {amount: 'important|double', comment: 'important'};
+                    if ($('.form1').validate(conditions)) {
+                        $.post('/student/payment', {form: form}, function (e) {
+                            if (e) {
+                                $.notify.success("<b>Successfully Saved!</b>");
+                            } else {
+                                $.notify.error("<b>Failed!</b>");
+                            }
+                        }, 'json');
+                    }
+                } else {
+                    $.notify.error("<b>Please Select a Student!</b>");
+                }
+            }
+
+            $('.search').keyup(function (key) {
+                typeahead($(this), $(this).val(), key, function () {
+                    loadSearchSummary();
+                });
+            });
+
+            function loadSearchSummary() {
+                $.post('/student/getResult', {id: $('.selectedID').val()}, function (e) {
+                    if (e !== undefined && e !== "0" && e !== 0) {
+                        $('.fname').html(e.FirstName);
+                        $('.lname').html(e.LastName);
+                        $('.addr').html(e.Address);
+                        $('.contact').html(e.ContactNumber);
+                        $('.email').html(e.Email);
+                        $('.gname').html(e.GuardianName);
+                        $('.gcontact').html(e.GuardianContact);
+                    }
+                }, 'json');
+            }
+
+            function typeahead($this, text, key, callbackOnExit) {
+
+                var x = $this.offset().top + $this.outerHeight() + 1;
+                var y = $this.offset().left;
+                var width = $this.outerWidth();
+
+                //typeahead dom start
+                var dom = '';
+                dom += '<div class="typeahead" style="position:absolute; top:' + x + 'px; left:' + y + 'px; min-width: ' + width + 'px; height:300px;">';
+                dom += '<table class="table table-bordered table-responsive typeaheadResults">';
+                dom += '<thead>';
+                dom += '<tr>';
+                dom += '<th colspan="4"><span></span><button class="btn btn-xs btn-primary pull-right selectResult"><i class="fa fa-check"></i></button></th>';
+                dom += '</tr>';
+                dom += '<tr>';
+                dom += '<th style="width:35px;"><i class="fa fa-circle"></i></th>';
+                dom += '<th style="width:100px;">ID</th>';
+                dom += '<th>Name</th>';
+                dom += '</tr>';
+                dom += '</thead>';
+                dom += '<tbody>';
+                dom += '</tbody>';
+                dom += '</table>';
+                dom += '</div>';//typeahead dom end
+
+                $('.typeahead').remove();
+                $('body').append(dom);
+                var $table = '.typeaheadResults';
+
+                $('.typeahead').css({
+                    'z-index': '999',
+                    padding: '1px 1px 1px 1px',
+                    backgroundColor: 'white',
+                    border: '1px solid grey',
+                    'box-shadow': '0px 0px 2px 2px grey'
+                });
+
+                if ($this.val() === "" || key.keyCode === 27) {
+                    $('.typeahead').remove();
+                    $this.css({'box-shadow': 'none', 'border-color': ''});
+                    $('.search').val('');
+                }
+
+
+
+                //end of typeahead core
+
+                if (text === "") {
+                    $this.css({'box-shadow': 'none', 'border-color': ''});
+                } else {
+                    var searchMethod = '';
+                    if (text === stringify(text.match(/^[1-9]+[0-9]*$/g))) {
+                        $this.css({'box-shadow': 'inset 0px 0px 3px #5CB811', 'border-color': '#5CB811'});
+                        //searching for id
+                        searchMethod = 'id';
+                    } else if (text === stringify(text.match(/^[a-zA-Z \.]+[a-zA-Z]*$/g))) {
+                        $this.css({'box-shadow': 'inset 0px 0px 3px #5CB811', 'border-color': '#5CB811'});
+                        //searching for name
+                        searchMethod = 'name';
+                    } else {
+                        $this.css({'box-shadow': 'inset 0px 0px 3px #ff6400', 'border-color': '#ff8a3f'});
+                        searchMethod = '';
+                    }
+
+                    if (searchMethod.length > 0) {
+                        $.post('/student/search', {method: searchMethod, text: text}, function (e) {
+                            var tbody = '';
+                            if (Object.keys(e).length > 0) {
+                                $.each(e, function (k, v) {
+                                    tbody += '<tr>';
+                                    if (k === 0) {
+                                        tbody += '<td><input class="checkradio" value="' + v.ID + '" name="typeaheadR" type="radio" checked="checked"></td>';
+                                    } else {
+                                        tbody += '<td><input class="checkradio" value="' + v.ID + '" name="typeaheadR" type="radio"></td>';
+                                    }
+                                    tbody += '<td>' + v.ID + '</td>';
+                                    tbody += '<td>' + v.FirstName + ' ' + v.LastName + '</td>';
+                                    tbody += '</tr>';
+                                });
+                            }
+                            $('tbody', $table).html(tbody);
+
+                            if (key.keyCode === 13) {
+                                key.preventDefault();
+                                $('.search').val('');
+                                $('.selectedID').val($('input[name=typeaheadR]:checked', '.typeaheadResults tbody').val());
+                                $('.typeahead').remove();
+                                if (callbackOnExit !== undefined && typeof (callbackOnExit) === 'function') {
+                                    if ($('.selectedID').val() !== "") {
+                                        callbackOnExit();
+                                    }
+                                }
+                            }
+
+                            $('.typeaheadResults thead .selectResult').click(function () {
+                                $('.search').val('');
+                                $('.selectedID').val($('input[name=typeaheadR]:checked', '.typeaheadResults tbody').val());
+                                $('.typeahead').remove();
+                                if (callbackOnExit !== undefined && typeof (callbackOnExit) === 'function') {
+                                    if ($('.selectedID').val() !== "") {
+                                        callbackOnExit();
+                                    }
+                                }
+                            });
+                        }, 'json');
+                    }
+                }
+            }
+
+            function stringify(array) {
+                var s = '';
+                if (array !== null) {
+                    $.each(array, function (i, v) {
+                        s += v;
+                    });
+                }
+                return s;
+            }
+        });
+    </script>
+{% endblock %}
+

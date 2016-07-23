@@ -2,7 +2,7 @@
  * Created by kitz
  * kitz.kitzerland@gmail.com
  * date : 19-04-2016
- * conditions : important, name, date, address, alphabatical, double, positive
+ * conditions : important, name, date, address, alphabatical, double, positive, telephone, nic, username, email
  * usage : v = {node_name : 'important|alphabatical', another_node_name : 'important'};
  *         $('.form').validate(v);
  */

@@ -67,6 +67,8 @@ $router->post('login', ['controller' => 'LoginController', 'action' => 'login', 
 $router->post('student/register', ['controller' => 'RegistrationController', 'action' => 'register', 'namespace' => 'Student']);
 $router->post('student/search', ['controller' => 'SearchController', 'action' => 'index', 'namespace' => 'Student']);
 $router->post('student/getResult', ['controller' => 'SearchController', 'action' => 'getResult', 'namespace' => 'Student']);
+$router->post('student/achievement', ['controller' => 'AchievementController', 'action' => 'achievement', 'namespace' => 'Student']);
+$router->post('student/payment', ['controller' => 'PaymentController', 'action' => 'payment', 'namespace' => 'Student']);
 
 
 
