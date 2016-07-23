@@ -17,7 +17,7 @@ class SearchController extends \Core\Controller {
         echo json_encode(SearchModel::getResults($this->route_params));
     }
 
-    public function getResult() {
+    public function getResultAction() {
         echo json_encode(SearchModel::getResultFor($this->route_params));
     }
 

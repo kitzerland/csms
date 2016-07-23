@@ -18,11 +18,11 @@ class PaymentController extends \Core\Controller {
         View::renderTemplate('Student/payment.php.twig');
     }
     
-    public function payment(){
+    public function paymentAction(){
         echo json_encode(PaymentModel::payment($this->route_params['form']));
     }
     
-    public function setCookie(){
+    public function setCookieAction(){
         $rout_param = $this->route_params;
                
         setcookie('id', $rout_param['id']);
@@ -32,7 +32,7 @@ class PaymentController extends \Core\Controller {
         echo true;         
     }
     
-    public function getCookie(){
+    public function getCookieAction(){
         echo json_encode($_COOKIE);
     }
 }

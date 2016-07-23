@@ -79,7 +79,7 @@
             function redirecttoinv() {
                 var form = $('.form1').formobject();
                 var id = $('.selectedID').val();
-                form['id'] = id;
+                form.id = id;
 
                 $.post('/payment/setcookie', form, function (data) {
                     if (data) {
@@ -113,10 +113,10 @@
 
             function cleartextbox() {
                 $('input').each(function () {
-                    $(this).val("")
+                    $(this).val("");
                 });
                 $('textarea').each(function () {
-                    $(this).val("")
+                    $(this).val("");
                 });
             }
 

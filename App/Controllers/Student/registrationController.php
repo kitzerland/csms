@@ -23,7 +23,7 @@ class RegistrationController extends \Core\Controller {
         echo json_encode($status);
     }
     
-    public function getStudent(){
+    public function getStudentAction(){
         
         $param = $this->route_params;
         $index = $param['index'];

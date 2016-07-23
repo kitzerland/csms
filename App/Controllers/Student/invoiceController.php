@@ -3,7 +3,6 @@
 namespace App\Controllers\Student;
 
 use \Core\View;
-use App\Models\Student\PaymentModel;
 
 class InvoiceController extends \Core\Controller {
 
