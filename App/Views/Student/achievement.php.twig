@@ -174,6 +174,7 @@
                 });
 
                 if ($this.val() === "" || key.keyCode === 27) {
+                    key.preventDefault();
                     $('.typeahead').remove();
                     $this.css({'box-shadow': 'none', 'border-color': ''});
                     $('.search').val('');
@@ -217,10 +218,21 @@
                                 });
                             }
                             $('tbody', $table).html(tbody);
+                            $($table).scrollTableBody({height: '213px'});
+
+                            $(document).mouseup(function (e) {
+                                var container = $('.typeahead, .search');
+                                if (!container.is(e.target) && container.has(e.target).length === 0) {
+                                    $('.search').val('');
+                                    $this.css({'box-shadow': 'none', 'border-color': ''});
+                                    $('.typeahead').remove();
+                                }
+                            });
 
                             if (key.keyCode === 13) {
                                 key.preventDefault();
                                 $('.search').val('');
+                                $this.css({'box-shadow': 'none', 'border-color': ''});
                                 $('.selectedID').val($('input[name=typeaheadR]:checked', '.typeaheadResults tbody').val());
                                 $('.typeahead').remove();
                                 if (callbackOnExit !== undefined && typeof (callbackOnExit) === 'function') {
@@ -232,6 +244,7 @@
 
                             $('.typeaheadResults thead .selectResult').click(function () {
                                 $('.search').val('');
+                                $this.css({'box-shadow': 'none', 'border-color': ''});
                                 $('.selectedID').val($('input[name=typeaheadR]:checked', '.typeaheadResults tbody').val());
                                 $('.typeahead').remove();
                                 if (callbackOnExit !== undefined && typeof (callbackOnExit) === 'function') {
