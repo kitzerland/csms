@@ -71,6 +71,7 @@ $router->post('student/getResult', ['controller' => 'SearchController', 'action'
 $router->post('student/achievement', ['controller' => 'AchievementController', 'action' => 'achievement', 'namespace' => 'Student']);
 $router->post('student/payment', ['controller' => 'PaymentController', 'action' => 'payment', 'namespace' => 'Student']);
 
+$router->post('student/getstudent', ['controller' => 'RegistrationController', 'action' => 'getstudent', 'namespace' => 'Student']);
 
 
 $router->dispatch($_SERVER['QUERY_STRING']);

@@ -72,6 +72,7 @@
 
             $('.save').click(function () {
                 payment();
+                
             });
 
             function payment() {
@@ -83,6 +84,7 @@
                         $.post('/student/payment', {form: form}, function (e) {
                             if (e) {
                                 $.notify.success("<b>Successfully Saved!</b>");
+                                cleartextbox();
                             } else {
                                 $.notify.error("<b>Failed!</b>");
                             }
@@ -91,6 +93,15 @@
                 } else {
                     $.notify.error("<b>Please Select a Student!</b>");
                 }
+            }
+            
+            function cleartextbox() {
+                $('input').each(function () {
+                    $(this).val("")
+                });
+                $('textarea').each(function () {
+                    $(this).val("")
+                });
             }
 
             $('.search').keyup(function (key) {

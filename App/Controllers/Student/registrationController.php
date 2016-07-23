@@ -3,7 +3,7 @@
 namespace App\Controllers\Student;
 
 use \Core\View;
-use App\Models\Student\RegistrationModel;
+use App\Models\Student\StudentsModel;
 
 class RegistrationController extends \Core\Controller {
 
@@ -19,8 +19,18 @@ class RegistrationController extends \Core\Controller {
     }
 
     public function registerAction() {
-        $status = RegistrationModel::register($this->route_params['form']);
+        $status = StudentsModel::register($this->route_params['form']);
         echo json_encode($status);
+    }
+    
+    public function getStudent(){
+        
+        $param = $this->route_params;
+        $index = $param['index'];
+        
+        $result = StudentsModel::get($index);
+        
+        echo json_encode($result);
     }
 
 }
