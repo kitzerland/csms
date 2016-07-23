@@ -125,6 +125,7 @@
             function loadSearchSummary() {
                 $.post('/student/getResult', {id: $('.selectedID').val()}, function (e) {
                     if (e !== undefined && e !== "0" && e !== 0) {
+                        $('.id').html(e.ID);
                         $('.fname').html(e.FirstName);
                         $('.lname').html(e.LastName);
                         $('.addr').html(e.Address);
