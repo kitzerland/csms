@@ -121,14 +121,13 @@
                         displaystring += '<td> ' + value.ContactNumber + ' </td>';
                         displaystring += '<td> ' + value.PhotoURL + ' </td>';
                         displaystring += '<td> ' + value.RegisteredDate + ' </td>';
-                        displaystring += '<td> ' + '<button class="btn btn-xs btn-default" id="viewstudent" data-id="' + value.ID + '"><i class="fa fa-edit"></i></button>' + ' </td>';
+                        displaystring += '<td> ' + '<button class="btn btn-xs btn-default" class="viewstudent" data-id="' + value.ID + '"><i class="fa fa-edit"></i></button>' + ' </td>';
 
                         displaystring += '</tr>';
                     });
 
                     $('#jsstudentbody').html(displaystring);
                     $('.jsstudent').scrollTableBody({height: '500px'});
-
                 });
             }
 

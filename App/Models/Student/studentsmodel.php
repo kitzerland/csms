@@ -26,9 +26,9 @@ class StudentsModel extends \Core\Model {
     public static function get($index){
         $db = static::getDB();
         
-        $query = "SELECT * FROM tblstudents";
+        $query = "SELECT * FROM tblstudents ORDER BY ID DESC";
         if($index != 0){
-            $query .= " WHERE ID = '".$index."'";
+            $query = "SELECT * FROM tblstudents WHERE ID = '".$index."' LIMIT 1";
         }
         
         $handler = $db->query($query);
