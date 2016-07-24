@@ -2,6 +2,8 @@
 
 namespace App\Models\Student;
 
+use PDO;
+
 class PaymentModel extends \Core\Model {
 
     public static function payment($params = []) {
@@ -17,6 +19,18 @@ class PaymentModel extends \Core\Model {
             return $db->lastInsertId();
         } else {
             return 0;
+        }
+    }
+
+    public static function getStudent($params = []) {
+        $db = static::getDB();
+        $query = $db->prepare("SELECT FirstName AS fname, LastName AS lname FROM `tblstudents` WHERE tblstudents.ID = :id LIMIT 1;");
+        $query->execute($params);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result;
+        } else {
+            return [];
         }
     }
 
