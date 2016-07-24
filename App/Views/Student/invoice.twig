@@ -7,6 +7,7 @@
 
     <div class="header-info text-right ">
         <h2> Invoice Number: {{ pid }}</h2>
+        <h3> Student Name: {{ fname }} {{lname}} </h3>
         <p> <span class="inv-label" > Date:</span> <span class="nowdate" ></span> </p>
     </div>
     
@@ -43,7 +44,12 @@
 {% block script %}
 
     <script>
-        $('.nowdate').html(new Date().toDateString());
+    $(function(){
+          $('.nowdate').html(new Date().toDateString());
+          window.print();
+          document.location.href = "/student/payment"; 
+    });  
+        
     </script>
 
 {% endblock %}

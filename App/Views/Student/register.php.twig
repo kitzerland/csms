@@ -7,7 +7,64 @@
             <fieldset class="scheduler-border col-md-12 form1">
                 <legend class="scheduler-border"><h3><small>Register A Student</small></h3></legend>
 
+
                 <div class="form-horizontal">
+                <span> Todo: delete this: Index number format: GCCA{year}{grade}{lastindexwiththisformat+1.format(00)} ex: GCCA2016F01 </span>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Grade</label>
+                        <div class="col-md-8">
+                            <input type="text" name="fname" class="form-control form-data">
+                        </div>
+                    </div>
+
+                <span> Grade needs to come (its a letter: A, B, C) </span>
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Index Number</label>
+                        <div class="col-md-8">
+                            <input type="text" name="fname" class="form-control form-data">
+                        </div>
+                    </div>
+
+                <span>other Newly added fields: input names are same as dbcolumns. cheout *********************** </span>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Office Address</label>
+                        <div class="col-md-8">
+                            <input type="text" name="officeaddress" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Name of the school</label>
+                        <div class="col-md-8">
+                            <input type="text" name="nameoftheschool" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">How did you find us</label>
+                        <div class="col-md-8">
+                            <input type="text" name="referenceinformation" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Mother Name</label>
+                        <div class="col-md-8">
+                            <input type="text" name="mothername" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Occupation</label>
+                        <div class="col-md-8">
+                            <input type="text" name="occupation" class="form-control form-data">
+                        </div>
+                    </div>
+
+                <span>end newly added fieds *********************** </span>
+
+
                     <div class="form-group">
                         <label class="control-label col-md-4">First Name</label>
                         <div class="col-md-8">
@@ -98,19 +155,21 @@
 {% block script %}
     <script>
         $(function () {
-            
+
             getallstudents();
             $('input[name="fname"]').select();
             $(document).keydown(function (e) {
-                if (e.keyCode === 13) {
+                {#if (e.keyCode === 13) {
                     register();
-
-
-                }
+                }#}
             });
+
             $('.register').click(function () {
                 register();
-            });
+            })
+
+
+
             function getallstudents() {
                 $.post('/student/getStudent', {index: 0}, function (data) {
                     var data = $.parseJSON(data);
@@ -144,7 +203,7 @@
 
                             getallstudents();
                             cleartextbox();
-                            
+
                         } else {
                             $.notify.error("<b>Registration Failed! Verify Information Provided!</b>");
                         }
