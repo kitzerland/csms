@@ -60,8 +60,6 @@ $router->add('student/register', ['controller' => 'RegistrationController', 'act
 $router->add('student/achievement', ['controller' => 'AchievementController', 'action' => 'index', 'namespace' => 'Student']);
 $router->add('student/payment', ['controller' => 'PaymentController', 'action' => 'index', 'namespace' => 'Student']);
 
-$router->add('student/invoice', ['controller' => 'InvoiceController', 'action' => 'index', 'namespace' => 'Student']);
-
 
 /**
  * Post Requests
@@ -74,8 +72,8 @@ $router->post('student/achievement', ['controller' => 'AchievementController', '
 $router->post('student/payment', ['controller' => 'PaymentController', 'action' => 'payment', 'namespace' => 'Student']);
 
 $router->post('student/getstudent', ['controller' => 'RegistrationController', 'action' => 'getstudent', 'namespace' => 'Student']);
-$router->post('payment/setcookie', ['controller' => 'PaymentController', 'action' => 'setcookie', 'namespace' => 'Student']);
-$router->post('payment/getcookie', ['controller' => 'PaymentController', 'action' => 'getcookie', 'namespace' => 'Student']);
+
+$router->post('student/invoice', ['controller' => 'PaymentController', 'action' => 'invoice', 'namespace' => 'Student']);
 
 
 $router->dispatch($_SERVER['QUERY_STRING']);

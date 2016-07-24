@@ -74,21 +74,6 @@
                 payment();
             });
 
-
-
-            function redirecttoinv() {
-                var form = $('.form1').formobject();
-                var id = $('.selectedID').val();
-                form.id = id;
-
-                $.post('/payment/setcookie', form, function (data) {
-                    if (data) {
-                       window.location.replace("/student/invoice");
-                    }
-                });
-
-            }
-
             function payment() {
                 var form = $('.form1').formobject();
                 if ($('.selectedID').val() !== "") {
@@ -96,11 +81,11 @@
                     var conditions = {amount: 'important|double', comment: 'important'};
                     if ($('.form1').validate(conditions)) {
                         $.post('/student/payment', {form: form}, function (e) {
-                            if (e) {
+                            if (e !== '0') {
                                 $.notify.success("<b>Successfully Saved!</b>");
-
-                                redirecttoinv();
+                                form.pid = e;
                                 cleartextbox();
+                                $.redirectpost('/student/invoice', form);
                             } else {
                                 $.notify.error("<b>Failed!</b>");
                             }
