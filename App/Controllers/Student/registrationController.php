@@ -3,7 +3,7 @@
 namespace App\Controllers\Student;
 
 use \Core\View;
-use App\Models\Student\StudentsModel;
+use App\Models\Student\RegistrationModel;
 
 class RegistrationController extends \Core\Controller {
 
@@ -19,18 +19,28 @@ class RegistrationController extends \Core\Controller {
     }
 
     public function registerAction() {
-        $status = StudentsModel::register($this->route_params['form']);
+        $status = RegistrationModel::register($this->route_params['form']);
         echo json_encode($status);
     }
-    
-    public function getStudentAction(){
-        
-        $param = $this->route_params;
-        $index = $param['index'];
-        
-        $result = StudentsModel::get($index);
-        
-        echo json_encode($result);
+
+    public function getStudentAction() {
+        echo json_encode(RegistrationModel::get($this->route_params['index']));
+    }
+
+    public function nextIndexAction() {
+        if (preg_match('/^20[0-9][0-9]$/', $this->route_params['year']) && preg_match('/^[a-zA-Z]{1}$/', $this->route_params['grade'])) {
+            echo json_encode(RegistrationModel::getNextIndex($this->route_params));
+        } else {
+            echo json_encode('');
+        }
+    }
+
+    public function updateAction() {
+        echo json_encode(RegistrationModel::update($this->route_params));
+    }
+
+    public function deleteAction() {
+        echo json_encode(RegistrationModel::delete($this->route_params));
     }
 
 }

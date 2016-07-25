@@ -9,61 +9,31 @@
 
 
                 <div class="form-horizontal">
-                <span> Todo: delete this: Index number format: GCCA{year}{grade}{lastindexwiththisformat+1.format(00)} ex: GCCA2016F01 </span>
+
+                    <div class="form-group">
+                        <input type="text" hidden class="selectedID">
+                        <input type="text" hidden class="oIndex">
+
+                        <label class="control-label col-md-4">Year</label>
+                        <div class="col-md-8">
+                            <select data-placeholder="Select Year" name="year" class="chosen-select form-control year">
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="control-label col-md-4">Grade</label>
                         <div class="col-md-8">
-                            <input type="text" name="fname" class="form-control form-data">
+                            <input type="text" name="grade" class="form-control form-data grade">
                         </div>
                     </div>
 
-                <span> Grade needs to come (its a letter: A, B, C) </span>
                     <div class="form-group">
                         <label class="control-label col-md-4">Index Number</label>
                         <div class="col-md-8">
-                            <input type="text" name="fname" class="form-control form-data">
+                            <input type="text" name="index" disabled class="form-control form-data index">
                         </div>
                     </div>
-
-                <span>other Newly added fields: input names are same as dbcolumns. cheout *********************** </span>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4">Office Address</label>
-                        <div class="col-md-8">
-                            <input type="text" name="officeaddress" class="form-control form-data">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4">Name of the school</label>
-                        <div class="col-md-8">
-                            <input type="text" name="nameoftheschool" class="form-control form-data">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4">How did you find us</label>
-                        <div class="col-md-8">
-                            <input type="text" name="referenceinformation" class="form-control form-data">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4">Mother Name</label>
-                        <div class="col-md-8">
-                            <input type="text" name="mothername" class="form-control form-data">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-4">Occupation</label>
-                        <div class="col-md-8">
-                            <input type="text" name="occupation" class="form-control form-data">
-                        </div>
-                    </div>
-
-                <span>end newly added fieds *********************** </span>
-
 
                     <div class="form-group">
                         <label class="control-label col-md-4">First Name</label>
@@ -77,6 +47,8 @@
                             <input type="text" name="lname" class="form-control form-data">
                         </div>
                     </div>
+
+
                     <div class="form-group">
                         <label class="control-label col-md-4">Address</label>
                         <div class="col-md-8">
@@ -106,14 +78,49 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-4">Guardian Name</label>
+                        <label class="control-label col-md-4">Name of the school</label>
+                        <div class="col-md-8">
+                            <input type="text" name="schname" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">How did you find us</label>
+                        <div class="col-md-8">
+                            <input type="text" name="ref" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Office Address</label>
+                        <div class="col-md-8">
+                            <input type="text" name="offaddr" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Father's Name</label>
                         <div class="col-md-8">
                             <input type="text" name="gname" class="form-control form-data">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-4">Guardian Contact No</label>
+                        <label class="control-label col-md-4">Mother's Name</label>
+                        <div class="col-md-8">
+                            <input type="text" name="mname" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Occupation</label>
+                        <div class="col-md-8">
+                            <input type="text" name="ocp" class="form-control form-data">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-4">Parent Contact No</label>
                         <div class="col-md-8">
                             <input type="text" name="gcontact" class="form-control form-data">
                         </div>
@@ -121,7 +128,18 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-4 col-md-4">
-                            <button class="btn btn-primary btn-block register">Register</button>
+                            <button class="btn btn-primary btn-block register" style="display: none;">Register</button>
+                        </div>
+                        <div class="col-md-offset-4 col-md-4">
+                            <button class="btn btn-warning btn-block update" style="display: none;">Update</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-info btn-block cancel" style="display: none;">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="form-group deleteWrapper" style="display: none;">
+                        <div class="col-md-offset-4 col-md-8">
+                            <button class="btn btn-danger btn-block delete">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -149,24 +167,119 @@
     </dv>
 
 
-
-
 {% endblock %}
 {% block script %}
     <script>
         $(function () {
-
+            $('.chosen-select').chosen();
+            $('input[name="grade"]').select();
+            $('.year').loadyear();
+            switchForm(0);
             getallstudents();
-            $('input[name="fname"]').select();
-            $(document).keydown(function (e) {
-                {#if (e.keyCode === 13) {
-                    register();
-                }#}
+
+            $('.grade').keyupvalidate(/^[a-zA-z]{1}$/g);
+
+            $('.grade').keyup(function () {
+                generateIndex();
             });
+
+            $('.year').on('change', function () {
+                generateIndex();
+            });
+
+            function generateIndex() {
+                var oIndex = $('.oIndex').val();
+                var year = $('.year').val();
+                var grade = $('.grade').val();
+                if ((year !== oIndex.substr(4, 4)) || (grade.toLowerCase() !== oIndex.substr(8, 1).toLowerCase())) {
+                    $.post('/student/nextIndex', {year: year, grade: grade}, function (e) {
+                        $('.index').val(e);
+                    }, 'json');
+                } else {
+                    $('.index').val(oIndex);
+                }
+
+
+            }
 
             $('.register').click(function () {
                 register();
-            })
+            });
+
+            $(document).on('click', '.edit', function () {
+                $('.selectedID').val($(this).val());
+                $.post('/student/getStudent', {index: $(this).val()}, function (data) {
+                    $('.oIndex').val(data.index);
+                    $('.form1').formobject.fillForm(data);
+                    switchForm(1);
+                }, 'json');
+            });
+
+            $('.cancel').click(function () {
+                switchForm(0);
+            });
+
+            $('.update').click(function () {
+                var id = $('.selectedID').val();
+                if (id !== "") {
+                    var form = $('.form1').formobject();
+                    var conditions = {
+                        index: 'important', fname: 'important|name', lname: 'important|name', addr: 'important|address',
+                        contact: 'telephone', email: 'email', gname: 'name', gcontact: 'telephone', grade: 'important'
+                    };
+                    if ($('.form1').validate(conditions)) {
+                        $.post('/student/update', {form: form, id: id}, function (e) {
+                            if (e !== undefined && e !== "0" && e !== 0) {
+                                $.notify.success("<b>Student Updated Successfully!</b>");
+                                switchForm(0);
+                                getallstudents();
+                            } else {
+                                $.notify.error("<b>Update Failed! Verify Information Provided!</b>");
+                            }
+                        }, 'json');
+                    } else {
+                        $.notify.error("<b>Some Information Entered Seems To Be Incorrect!</b>");
+                    }
+                } else {
+                    switchForm(0);
+                }
+            });
+
+            $('.delete').click(function () {
+                var id = $('.selectedID').val();
+                if (id !== "") {
+                    $.post('/student/delete', {id: id}, function (e) {
+                        if (e !== undefined && e !== "0" && e !== 0) {
+                            $.notify.success("<b>Student Deleted Successfully!</b>");
+                            switchForm(0);
+                            getallstudents();
+                        } else {
+                            $.notify.error("<b>Delete Failed! This Record May be Related to Other Data!</b>");
+                        }
+                    }, 'json');
+                } else {
+                    switchForm(0);
+                }
+            });
+
+
+            function switchForm(mode) {
+                mode = mode || 0;//mode 0 insert, mode 1 update
+                if (mode === 0) {
+                    $('.register').show();
+                    $('.update').hide();
+                    $('.cancel').hide();
+                    $('.deleteWrapper').hide();
+                    $('input').css({'box-shadow': 'none', 'border-color': ''});
+                    $('textarea').css({'box-shadow': 'none', 'border-color': ''});
+                    cleartextbox();
+                } else if (mode === 1) {
+                    $('.register').hide();
+                    $('.update').show();
+                    $('.cancel').show();
+                    $('.deleteWrapper').show();
+                }
+            }
 
 
 
@@ -180,34 +293,36 @@
                         displaystring += '<td> ' + value.ContactNumber + ' </td>';
                         displaystring += '<td> ' + value.PhotoURL + ' </td>';
                         displaystring += '<td> ' + value.RegisteredDate + ' </td>';
-                        displaystring += '<td> ' + '<button class="btn btn-xs btn-default" class="viewstudent" data-id="' + value.ID + '"><i class="fa fa-edit"></i></button>' + ' </td>';
+                        displaystring += '<td> ' + '<button class="btn btn-xs btn-default edit" value="' + value.ID + '"><i class="fa fa-edit"></i></button>' + ' </td>';
 
                         displaystring += '</tr>';
                     });
 
                     $('#jsstudentbody').html(displaystring);
-                    $('.jsstudent').scrollTableBody({height: '500px'});
+                    $('.jsstudent').scrollTableBody({height: '750px'});
                 });
             }
 
             function register() {
                 var form = $('.form1').formobject();
                 var conditions = {
-                    fname: 'important|name', lname: 'important|name', addr: 'important|address',
-                    contact: 'telephone', email: 'email', gname: 'important|name', gcontact: 'telephone'
+                    index: 'important', fname: 'important|name', lname: 'important|name', addr: 'important|address',
+                    contact: 'telephone', email: 'email', gname: 'name', gcontact: 'telephone', grade: 'important'
                 };
                 if ($('.form1').validate(conditions)) {
-                    $.post('register', {form: form}, function (e) {
+                    $.post('/student/register', {form: form}, function (e) {
                         if (e !== undefined && e !== "0" && e !== 0) {
                             $.notify.success("<b>Student Registered Successfully!</b>");
 
                             getallstudents();
-                            cleartextbox();
+                            switchForm(0);
 
                         } else {
                             $.notify.error("<b>Registration Failed! Verify Information Provided!</b>");
                         }
                     }, 'json');
+                } else {
+                    $.notify.error("<b>Some Information Entered Seems To Be Incorrect!</b>");
                 }
             }
 

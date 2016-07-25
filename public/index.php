@@ -65,15 +65,20 @@ $router->add('student/payment', ['controller' => 'PaymentController', 'action' =
  * Post Requests
  */
 $router->post('login', ['controller' => 'LoginController', 'action' => 'login', 'namespace' => 'User']);
+
 $router->post('student/register', ['controller' => 'RegistrationController', 'action' => 'register', 'namespace' => 'Student']);
+$router->post('student/getstudent', ['controller' => 'RegistrationController', 'action' => 'getstudent', 'namespace' => 'Student']);
+$router->post('student/nextIndex', ['controller' => 'RegistrationController', 'action' => 'nextIndex', 'namespace' => 'Student']);
+$router->post('student/update', ['controller' => 'RegistrationController', 'action' => 'update', 'namespace' => 'Student']);
+$router->post('student/delete', ['controller' => 'RegistrationController', 'action' => 'delete', 'namespace' => 'Student']);
+
 $router->post('student/search', ['controller' => 'SearchController', 'action' => 'index', 'namespace' => 'Student']);
 $router->post('student/getResult', ['controller' => 'SearchController', 'action' => 'getResult', 'namespace' => 'Student']);
+
 $router->post('student/achievement', ['controller' => 'AchievementController', 'action' => 'achievement', 'namespace' => 'Student']);
 $router->post('student/payment', ['controller' => 'PaymentController', 'action' => 'payment', 'namespace' => 'Student']);
-
-$router->post('student/getstudent', ['controller' => 'RegistrationController', 'action' => 'getstudent', 'namespace' => 'Student']);
-
 $router->post('student/invoice', ['controller' => 'PaymentController', 'action' => 'invoice', 'namespace' => 'Student']);
+
 
 
 $router->dispatch($_SERVER['QUERY_STRING']);

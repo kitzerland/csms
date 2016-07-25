@@ -46,8 +46,8 @@ $(function ($) {
 
 
     $.fn.formobject.fillForm = function (dataObject) {
-        var _this = $(this);
         $(this).each(function () {
+            var _this = $(this);
             $('.form-data', _this).each(function (i) {
                 var nodeName = $(this).prop('nodeName').toLowerCase();
                 var name = $(this).attr('name');

@@ -3,7 +3,7 @@
 {% block body %}
 
     <fieldset class="scheduler-border col-md-12">
-        <legend class="scheduler-border"><h3><small>Search A Student (ID/Name)</small></h3></legend>
+        <legend class="scheduler-border"><h3><small>Search A Student (ID/Index/First Name/Last Name)</small></h3></legend>
 
         <div class="form-horizontal">
 
@@ -23,6 +23,7 @@
                 <div class="col-md-offset-2 col-md-8">
                     <table class="table table-responsive table-bordered table-condensed resultSummary">
                         <tr><th>ID</th><td class="id"></td></tr>
+                        <tr><th>Index</th><td class="index"></td></tr>
                         <tr><th>First Name</th><td class="fname"></td></tr>
                         <tr><th>Last Name</th><td class="lname"></td></tr>
                         <tr><th>Address</th><td class="addr"></td></tr>
@@ -126,6 +127,7 @@
                 $.post('/student/getResult', {id: $('.selectedID').val()}, function (e) {
                     if (e !== undefined && e !== "0" && e !== 0) {
                         $('.id').html(e.ID);
+                        $('.index').html(e.index);
                         $('.fname').html(e.FirstName);
                         $('.lname').html(e.LastName);
                         $('.addr').html(e.Address);
@@ -146,14 +148,15 @@
                 //typeahead dom start
                 var dom = '';
                 dom += '<div class="typeahead" style="position:absolute; top:' + x + 'px; left:' + y + 'px; min-width: ' + width + 'px; height:300px;">';
-                dom += '<table class="table table-bordered table-responsive typeaheadResults">';
+                dom += '<table class="table table-bordered table-responsive table-condensed typeaheadResults">';
                 dom += '<thead>';
                 dom += '<tr>';
                 dom += '<th colspan="4"><span></span><button class="btn btn-xs btn-primary pull-right selectResult"><i class="fa fa-check"></i></button></th>';
                 dom += '</tr>';
                 dom += '<tr>';
                 dom += '<th style="width:35px;"><i class="fa fa-circle"></i></th>';
-                dom += '<th style="width:100px;">ID</th>';
+                dom += '<th style="width:80px;">ID</th>';
+                dom += '<th style="width:80px;">Index</th>';
                 dom += '<th>Name</th>';
                 dom += '</tr>';
                 dom += '</thead>';
@@ -197,7 +200,10 @@
                         $this.css({'box-shadow': 'inset 0px 0px 3px #5CB811', 'border-color': '#5CB811'});
                         //searching for name
                         searchMethod = 'name';
-                    } else {
+                    } else if (text === stringify(text.match(/^[a-zA-Z0-9]*$/g))) {
+                        //searching for index
+                        searchMethod = 'index';
+                    }else {
                         $this.css({'box-shadow': 'inset 0px 0px 3px #ff6400', 'border-color': '#ff8a3f'});
                         searchMethod = '';
                     }
@@ -214,6 +220,7 @@
                                         tbody += '<td><input class="checkradio" value="' + v.ID + '" name="typeaheadR" type="radio"></td>';
                                     }
                                     tbody += '<td>' + v.ID + '</td>';
+                                    tbody += '<td>' + v.Index +'</td>';
                                     tbody += '<td>' + v.FirstName + ' ' + v.LastName + '</td>';
                                     tbody += '</tr>';
                                 });
@@ -257,16 +264,6 @@
                         }, 'json');
                     }
                 }
-            }
-
-            function stringify(array) {
-                var s = '';
-                if (array !== null) {
-                    $.each(array, function (i, v) {
-                        s += v;
-                    });
-                }
-                return s;
             }
         });
     </script>
