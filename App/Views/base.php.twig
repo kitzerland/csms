@@ -17,7 +17,7 @@
 
         <!-- Add custom CSS here -->
         <link rel="stylesheet" href="{{ baseURL }}/css/custom.css">
-        
+
         {% block css %}
         {% endblock %}
 
@@ -53,5 +53,20 @@
         </div><!-- /#wrapper -->
         {% block script %}
         {% endblock %}
+        <script>
+            $(function () {
+                function getPageName(url) {
+                    url = url.replace(/^.*\/\/[^\/]+/, '');
+                    return url;
+                }
+
+                var curPage = getPageName(window.location.href);
+
+                if ($('a[href="' + curPage + '"]').length > 0) {
+                    $('a[href="' + curPage + '"]').closest('li').addClass('active');
+                    $('a[href="' + curPage + '"]').closest('li').parent().closest('li').addClass('open');
+                }
+            });
+        </script>
     </body>
 </html>
