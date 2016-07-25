@@ -29,8 +29,8 @@
                         <tr><th>Address</th><td class="addr"></td></tr>
                         <tr><th>Contact TP</th><td class="contact"></td></tr>
                         <tr><th>Email</th><td class="email"></td></tr>
-                        <tr><th>Guardian Name</th><td class="gname"></td></tr>
-                        <tr><th>Guardian TP</th><td class="gcontact"></td></tr>
+                        <tr><th>Father's Name</th><td class="gname"></td></tr>
+                        <tr><th>Parent TP</th><td class="gcontact"></td></tr>
                     </table>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                 $.post('/student/getResult', {id: $('.selectedID').val()}, function (e) {
                     if (e !== undefined && e !== "0" && e !== 0) {
                         $('.id').html(e.ID);
-                        $('.index').html(e.index);
+                        $('.index').html(e.Index);
                         $('.fname').html(e.FirstName);
                         $('.lname').html(e.LastName);
                         $('.addr').html(e.Address);
@@ -203,7 +203,7 @@
                     } else if (text === stringify(text.match(/^[a-zA-Z0-9]*$/g))) {
                         //searching for index
                         searchMethod = 'index';
-                    }else {
+                    } else {
                         $this.css({'box-shadow': 'inset 0px 0px 3px #ff6400', 'border-color': '#ff8a3f'});
                         searchMethod = '';
                     }
@@ -220,7 +220,7 @@
                                         tbody += '<td><input class="checkradio" value="' + v.ID + '" name="typeaheadR" type="radio"></td>';
                                     }
                                     tbody += '<td>' + v.ID + '</td>';
-                                    tbody += '<td>' + v.Index +'</td>';
+                                    tbody += '<td>' + v.Index + '</td>';
                                     tbody += '<td>' + v.FirstName + ' ' + v.LastName + '</td>';
                                     tbody += '</tr>';
                                 });
