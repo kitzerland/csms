@@ -3,40 +3,101 @@
 
 {% block body %}
 
-    <div class="header" > <h2> Milinda Chess Institute </h2> </div>
+    <div class="header" > <div class="logo"> <img src="/img/GCCAlogo.jpg"></img>  </div>  <span id="logotext"> Golden Castle Chess Academy </span> </div>
 
     <div class="header-info text-right ">
-        <h2> Invoice Number: {{ pid }}</h2>
-        <h3> Student Name: {{ fname }} {{lname}} </h3>
+        <h2> Invoice Number: <strong> {{ pid }} </strong> </h2>
+        <h3> Student Name: <strong> {{ fname }} {{lname}} </strong> </h3>
         <p> <span class="inv-label" > Date:</span> <span class="nowdate" ></span> </p>
     </div>
-    
+
     <div class="body-info">
         <table class="table table-bordered">
-            <thead> <tr> <td> Name  </td> <td> Amount </td>  </tr>  </thead>
-            <tbody> <tr> <td> Class Fees </td>  <td> {{ amount }} </td>  <tr> </tbody>
+            <thead> <tr> <td> Description  </td> <td> Amount </td>  </tr>  </thead>
+            <tbody> <tr> <td> Monthly class fees </td>  <td> {{ amount }} /= </td>  <tr> </tbody>
         </table>
-        
-        <h3 class="text-right" >Total: {{ amount }}  </h3>
+
+        <h3 class="text-right" >Total: {{ amount }} /=  </h3>
     </div>
-    
+
+    <footer id="footer">
+        <div class="footer-left">
+            <p> <strong>Address:</strong> Golden Castle Chess Academy </p>
+            <p><strong>T.P:</strong> 071 157 1100 </p>
+        </div>
+        <div class="footer-right" >
+            <p class="text-right"><strong>Facebook:</strong> www.facebook.com/gcca </p>
+        </div>        
+
+    </footer>
+
 {% endblock %}
 
 {% block css %}
 
     <style>
-        .header{
-            border: 1px solid black;
-            background-color:gray;
-            color:white;
-            padding:20px;
-        }
-       
-        .inv-label{
-            color:black;
-            
-        }
         
+        body{
+            -webkit-print-color-adjust: exact;
+        }
+            
+        @media print{
+            
+            
+            .header{
+                -webkit-print-color-adjust: exact;
+                padding:15px;
+                width:100%;
+                clear:both;
+                display: inline-block;
+            }
+            
+            .footer-left, .footer-right{
+                width:200px;
+                display: inline-block;
+            }
+            .footer-left{
+                float:left;
+            }
+            .footer-right{
+                float:right;
+            }
+            
+            #footer {
+                -webkit-print-color-adjust: exact;
+                position:fixed;
+                left:0px;
+                padding:15px;
+                bottom:0px;
+                height:100px;
+                width:100%;
+                background:lightgreen !important;
+                color:white !important;
+             }
+            
+            #logotext{
+                color:#80b831 !important;
+                -webkit-print-color-adjust: exact;
+                font-size: 37px;
+                margin-top:15px;
+                float:right;
+            }
+
+            .header img{
+                float:left;
+                width: 100px;
+            }
+            
+            .body-info{
+                width: 100%;
+                clear:both;
+            }
+            .inv-label{
+                color:black;
+
+            }
+        }
+
     </style>
 
 {% endblock %}
@@ -44,12 +105,12 @@
 {% block script %}
 
     <script>
-    $(function(){
-          $('.nowdate').html(new Date().toDateString());
-          window.print();
-          document.location.href = "/student/payment"; 
-    });  
-        
+        $(function () {
+            $('.nowdate').html(new Date().toDateString());
+            window.print();
+            document.location.href = "/student/payment";
+        });
+
     </script>
 
 {% endblock %}
