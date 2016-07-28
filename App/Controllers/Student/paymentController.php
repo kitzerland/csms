@@ -25,7 +25,26 @@ class PaymentController extends \Core\Controller {
     public function invoiceAction() {
         $result = PaymentModel::getStudent(['id' => $this->route_params['id']]);
         $result = array_merge($result, $this->route_params);
+        if (empty($result['date'])) {
+            $result['date'] = date('Y-m-d');
+        }
         View::renderTemplate('Student/invoice.twig', $result);
+    }
+
+    public function paymentReportAction() {
+        View::renderTemplate('Student/paymentHistory.php.twig');
+    }
+
+    public function paymentHistoryAction() {
+        echo json_encode(PaymentModel::getHistory($this->route_params));
+    }
+
+    public function paymentOverdueAction() {
+        View::renderTemplate('Student/paymentOverdue.php.twig');
+    }
+
+    public function overdueAction() {
+        echo json_encode(PaymentModel::overdue($this->route_params));
     }
 
 }

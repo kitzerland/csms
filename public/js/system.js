@@ -54,4 +54,131 @@ $.fn.keyupvalidate = function (regex, onAccept, onReject) {
     });
 };
 
+function typeahead($this, text, key, callbackOnExit) {
+
+    var x = $this.offset().top + $this.outerHeight() + 1;
+    var y = $this.offset().left;
+    var width = $this.outerWidth();
+
+    //typeahead dom start
+    var dom = '';
+    dom += '<div class="typeahead" style="position:absolute; top:' + x + 'px; left:' + y + 'px; min-width: ' + width + 'px; height:300px;">';
+    dom += '<table class="table table-bordered table-responsive table-condensed typeaheadResults">';
+    dom += '<thead>';
+    dom += '<tr>';
+    dom += '<th colspan="4"><span></span><button class="btn btn-xs btn-primary pull-right selectResult"><i class="fa fa-check"></i></button></th>';
+    dom += '</tr>';
+    dom += '<tr>';
+    dom += '<th style="width:35px;"><i class="fa fa-circle"></i></th>';
+    dom += '<th style="width:80px;">ID</th>';
+    dom += '<th style="width:80px;">Index</th>';
+    dom += '<th>Name</th>';
+    dom += '</tr>';
+    dom += '</thead>';
+    dom += '<tbody>';
+    dom += '</tbody>';
+    dom += '</table>';
+    dom += '</div>';//typeahead dom end
+
+    $('.typeahead').remove();
+    $('body').append(dom);
+    var $table = '.typeaheadResults';
+
+    $('.typeahead').css({
+        'z-index': '999',
+        padding: '1px 1px 1px 1px',
+        backgroundColor: 'white',
+        border: '1px solid grey',
+        'box-shadow': '0px 0px 2px 2px grey'
+    });
+
+    if ($this.val() === "" || key.keyCode === 27) {
+        key.preventDefault();
+        $('.typeahead').remove();
+        $this.css({'box-shadow': 'none', 'border-color': ''});
+        $('.search').val('');
+    }
+
+
+
+    //end of typeahead core
+
+    if (text === "") {
+        $this.css({'box-shadow': 'none', 'border-color': ''});
+    } else {
+        var searchMethod = '';
+        if (text === stringify(text.match(/^[1-9]+[0-9]*$/g))) {
+            $this.css({'box-shadow': 'inset 0px 0px 3px #5CB811', 'border-color': '#5CB811'});
+            //searching for id
+            searchMethod = 'id';
+        } else if (text === stringify(text.match(/^[a-zA-Z \.]+[a-zA-Z]*$/g))) {
+            $this.css({'box-shadow': 'inset 0px 0px 3px #5CB811', 'border-color': '#5CB811'});
+            //searching for name
+            searchMethod = 'name';
+        } else if (text === stringify(text.match(/^[a-zA-Z0-9]*$/g))) {
+            //searching for index
+            searchMethod = 'index';
+        } else {
+            $this.css({'box-shadow': 'inset 0px 0px 3px #ff6400', 'border-color': '#ff8a3f'});
+            searchMethod = '';
+        }
+
+        if (searchMethod.length > 0) {
+            $.post('/student/search', {method: searchMethod, text: text}, function (e) {
+                var tbody = '';
+                if (Object.keys(e).length > 0) {
+                    $.each(e, function (k, v) {
+                        tbody += '<tr>';
+                        if (k === 0) {
+                            tbody += '<td><input class="checkradio" value="' + v.ID + '" name="typeaheadR" type="radio" checked="checked"></td>';
+                        } else {
+                            tbody += '<td><input class="checkradio" value="' + v.ID + '" name="typeaheadR" type="radio"></td>';
+                        }
+                        tbody += '<td>' + v.ID + '</td>';
+                        tbody += '<td>' + v.Index + '</td>';
+                        tbody += '<td>' + v.FirstName + ' ' + v.LastName + '</td>';
+                        tbody += '</tr>';
+                    });
+                }
+                $('tbody', $table).html(tbody);
+                $($table).scrollTableBody({height: '213px'});
+
+                $(document).mouseup(function (e) {
+                    var container = $('.typeahead, .search');
+                    if (!container.is(e.target) && container.has(e.target).length === 0) {
+                        $('.search').val('');
+                        $this.css({'box-shadow': 'none', 'border-color': ''});
+                        $('.typeahead').remove();
+                    }
+                });
+
+                if (key.keyCode === 13) {
+                    key.preventDefault();
+                    $('.search').val('');
+                    $this.css({'box-shadow': 'none', 'border-color': ''});
+                    $('.selectedID').val($('input[name=typeaheadR]:checked', '.typeaheadResults tbody').val());
+                    $('.typeahead').remove();
+                    if (callbackOnExit !== undefined && typeof (callbackOnExit) === 'function') {
+                        if ($('.selectedID').val() !== "") {
+                            callbackOnExit();
+                        }
+                    }
+                }
+
+                $('.typeaheadResults thead .selectResult').click(function () {
+                    $('.search').val('');
+                    $this.css({'box-shadow': 'none', 'border-color': ''});
+                    $('.selectedID').val($('input[name=typeaheadR]:checked', '.typeaheadResults tbody').val());
+                    $('.typeahead').remove();
+                    if (callbackOnExit !== undefined && typeof (callbackOnExit) === 'function') {
+                        if ($('.selectedID').val() !== "") {
+                            callbackOnExit();
+                        }
+                    }
+                });
+            }, 'json');
+        }
+    }
+}
+
 

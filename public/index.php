@@ -59,6 +59,9 @@ $router->add('index', ['controller' => 'HomeController', 'action' => 'index']);
 $router->add('student/register', ['controller' => 'RegistrationController', 'action' => 'index', 'namespace' => 'Student']);
 $router->add('student/achievement', ['controller' => 'AchievementController', 'action' => 'index', 'namespace' => 'Student']);
 $router->add('student/payment', ['controller' => 'PaymentController', 'action' => 'index', 'namespace' => 'Student']);
+$router->add('student/payment-history', ['controller' => 'PaymentController', 'action' => 'paymentReport', 'namespace' => 'Student']);
+$router->add('student/payment-overdue', ['controller' => 'PaymentController', 'action' => 'paymentOverdue', 'namespace' => 'Student']);
+
 
 
 /**
@@ -79,6 +82,7 @@ $router->post('student/achievement', ['controller' => 'AchievementController', '
 $router->post('student/payment', ['controller' => 'PaymentController', 'action' => 'payment', 'namespace' => 'Student']);
 $router->post('student/invoice', ['controller' => 'PaymentController', 'action' => 'invoice', 'namespace' => 'Student']);
 
-
+$router->post('student/history', ['controller' => 'PaymentController', 'action' => 'paymentHistory', 'namespace' => 'Student']);
+$router->post('student/overdue', ['controller' => 'PaymentController', 'action' => 'overdue', 'namespace' => 'Student']);
 
 $router->dispatch($_SERVER['QUERY_STRING']);

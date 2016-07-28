@@ -7,8 +7,8 @@
 
     <div class="header-info text-right ">
         <h2> Invoice Number: <strong> {{ pid }} </strong> </h2>
-        <h3> Student Name: <strong> {{ fname }} {{lname}} </strong> </h3>
-        <p> <span class="inv-label" > Date:</span> <span class="nowdate" ></span> </p>
+        <h3> Student Name: <strong> {{ fname }} {{ lname }} </strong> </h3>
+        <p> <span class="inv-label" > Date:</span> {{ date }} </p>
     </div>
 
     <div class="body-info">
@@ -108,7 +108,7 @@
         $(function () {
             $('.nowdate').html(new Date().toDateString());
             window.print();
-            document.location.href = "/student/payment";
+            window.history.back();
         });
 
     </script>

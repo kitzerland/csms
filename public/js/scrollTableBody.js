@@ -3,11 +3,20 @@
 
     $.fn.scrollTableBody = function (options) {
         var settings = $.extend({
-            height: '200px'
+            height: '200'
         }, options);
         $.fn.scrollTableBody.gOptions = settings;
         $(this).each(function () {
             var _this = $(this);
+            $('tbody', _this).height('');//get rid of defautlt height
+            if (isNaN(settings.height)) {
+                settings.height = parseInt(settings.height);
+            }
+
+            if (($('tbody', _this).height() > 0) && $('tbody', _this).height() < settings.height) {
+                settings.height = $('tbody', _this).height();
+            }
+
             var theadStyle = {'display': 'block', 'position': 'relative'};
             var tbodyStyle = {'display': 'block', 'overflow-y': 'auto', 'height': settings.height};
             var tfootStyle = {'display': 'block', 'position': 'relative'};

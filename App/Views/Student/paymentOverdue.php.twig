@@ -1,0 +1,79 @@
+{% extends "base.php.twig" %}
+{% block navigation %} {% include "navigation.php.twig" %} {% endblock %}
+{% block body %}
+
+    <fieldset class="scheduler-border col-md-12">
+        <legend class="scheduler-border"><h3><small>Select Month</small></h3></legend>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-3 input-append input-group datetimepicker">
+                    <input type="text" class="form-control date form-data" disabled name="date" format="yyyy-MM">
+                    <span class="add-on input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-primary btn-block load">Load</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="scheduler-border col-md-12">
+        <legend class="scheduler-border"><h3><small>Overdue Students</small></h3></legend>
+        <div class="table-responsive">
+            <table class="table table-bordered overdueList">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th style="width: 180px;">Index Number</th>
+                        <th>Name</th>
+                        <th style="width: 200px;">Last Payment Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $('.overdueList').scrollTableBody();
+            $('.datetimepicker').datetimepicker({
+                format: "yyyy-MM",
+                viewMode: "months",
+                minViewMode: "months"
+            });
+
+            $('.load').click(function () {
+                if ($('.date').val().length > 0) {
+                    $.post('/student/overdue', {month: $('.date').val()}, function (e) {
+                        if (e !== undefined && e !== "0" && e !== 0) {
+                            if (Object.keys(e).length > 0) {
+                                var tbody = '';
+                                $.each(e, function (i, k) {
+                                    tbody += '<tr>';
+                                    tbody += '<td>' + ++i + '</td>';
+                                    tbody += '<td>' + k.index + '</td>';
+                                    tbody += '<td>' + k.fname + ' ' + k.lname + '</td>';
+                                    tbody += '<td>' + k.lpd + '</td>';
+                                    tbody += '</tr>';
+                                });
+                            }
+                            $('.overdueList tbody').html(tbody);
+                            $('.overdueList').scrollTableBody({height: '750px'});
+                        }
+                    }, 'json');
+                } else {
+                    $.notify.default("<b>Select a Month!</b>");
+                }
+            });
+
+        });
+    </script>    
+{% endblock %}

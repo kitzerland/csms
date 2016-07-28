@@ -1,0 +1,121 @@
+{% extends "base.php.twig" %}
+{% block navigation %} {% include "navigation.php.twig" %} {% endblock %}
+{% block body %}
+
+    <fieldset class="scheduler-border col-md-12">
+        <legend class="scheduler-border"><h3><small>Search A Student (ID/Index/First Name/Last Name)</small></h3></legend>
+
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Search</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control search">
+                    <input type="hidden" class="selectedID">
+                </div>
+            </div>
+            <style>
+                .resultSummary tr th{
+                    width: 110px !important;
+                }
+            </style>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    <table class="table table-responsive table-bordered table-condensed resultSummary">
+                        <tr><th>ID</th><td class="id"></td></tr>
+                        <tr><th>Index</th><td class="index"></td></tr>
+                        <tr><th>First Name</th><td class="fname"></td></tr>
+                        <tr><th>Last Name</th><td class="lname"></td></tr>
+                        <tr><th>Address</th><td class="addr"></td></tr>
+                        <tr><th>Last Payment</th><td class="lpd"></td></tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <fieldset class="scheduler-border col-md-12">
+        <legend class="scheduler-border"><h3><small>Payment History</small></h3></legend>
+        <div class="table-responsive">
+            <table class="table table-bordered paymentHisoty">
+                <thead>
+                    <tr>
+                        <th colspan="4" class="text-center text-danger"></th>
+                    </tr>
+                    <tr>
+                        <th style="width:100px;">#</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th style="width:100px;">Reprint</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+
+{% endblock %}
+{% block script %}
+    <script>
+        $(function () {
+            $('.paymentHisoty').scrollTableBody();
+            $('.search').select();
+
+            $(document).on('click', '.reprint', function () {
+                var data = {
+                    pid: $(this).val(),
+                    id: $(this).data('id'),
+                    amount: $(this).data('amount'),
+                    comment: $(this).data('comment'),
+                    date: $(this).data('date')
+                };
+                $.redirectpost('/student/invoice', data);
+            });
+
+            function studentPaymentHistory(id) {
+                $.post('/student/history', {id: id}, function (e) {
+                    if (e !== undefined && e !== "0" && e !== 0) {
+                        if (Object.keys(e).length > 0) {
+                            var tbody = '';
+                            $.each(e, function (i, k) {
+                                tbody += '<tr>';
+                                tbody += '<td>' + ++i + '</td>';
+                                tbody += '<td>' + k.date + '</td>';
+                                tbody += '<td>' + k.amount + '</td>';
+                                tbody += '<td><button class="btn btn-default reprint" data-date="' + k.date + '" data-id="' + id + '" data-comment="' + k.comment + '" data-amount="' + k.amount + '" value="' + k.ID + '"><i class="fa fa-print"></i></button></td>';
+                                tbody += '</tr>';
+                            });
+                        }
+                        $('.paymentHisoty tbody').html(tbody);
+                        $('.paymentHisoty').scrollTableBody({height: '750px'});
+                    }
+                }, 'json');
+            }
+
+
+            $('.search').keyup(function (key) {
+                typeahead($(this), $(this).val(), key, function () {
+                    loadSearchSummary();
+                });
+            });
+
+            function loadSearchSummary() {
+                $.post('/student/getResult', {id: $('.selectedID').val()}, function (e) {
+                    if (e !== undefined && e !== "0" && e !== 0) {
+                        $('.id').html(e.ID);
+                        $('.index').html(e.Index);
+                        $('.fname').html(e.FirstName);
+                        $('.lname').html(e.LastName);
+                        $('.addr').html(e.Address);
+                        $('.lpd').html(e.lpd);
+                        $('.paymentHisoty thead tr:first-child th').html(e.Index);
+                        studentPaymentHistory(e.ID);
+                    }
+                }, 'json');
+            }
+        });
+    </script>    
+{% endblock %}

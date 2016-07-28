@@ -57,7 +57,7 @@ class SearchModel extends \Core\Model {
                 . " FROM `tblstudents`"
                 . " LEFT JOIN tblstudentpayment ON tblstudents.ID = tblstudentpayment.StudentID"
                 . " WHERE tblstudents.ID = '{$id}'"
-                . " ORDER BY tblstudentpayment.Date DESC LIMIT 1;";
+                . " ORDER BY tblstudentpayment.ID DESC LIMIT 1;";
         $query = $db->query($str);
         $result = $query->fetch(PDO::FETCH_OBJ);
         return $result;
