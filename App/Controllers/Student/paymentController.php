@@ -23,11 +23,14 @@ class PaymentController extends \Core\Controller {
     }
 
     public function invoiceAction() {
+              
         $result = PaymentModel::getStudent(['id' => $this->route_params['id']]);
         $result = array_merge($result, $this->route_params);
+        
         if (empty($result['date'])) {
             $result['date'] = date('Y-m-d');
         }
+        
         View::renderTemplate('Student/invoice.twig', $result);
     }
 

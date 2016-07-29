@@ -12,10 +12,10 @@ class PaymentModel extends \Core\Model {
 
             $db = static::getDB();
 
-            $datetime = date("Y-m-d H:i:s");
             $query = $db->prepare("INSERT INTO `tblstudentpayment` "
-                    . "(`StudentID`, `Credit`, `Comment`, `Date`, `PublisherID`) VALUES "
-                    . "(:id, :amount, :comment, '{$datetime}', '{$userID}');");
+                    . "(`StudentID`, `Credit`, `Date`,`Comment`, `PublisherID`) VALUES "
+                    . "(:id, :amount, :date, :comment, '{$userID}');");
+            
             $count = $query->execute($params);
 
             if ($count == "1") {

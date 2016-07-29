@@ -91,7 +91,8 @@
     <script>
         $(function () {
             $('.search').select();
-            $('.datetimepicker').datetimepicker({pickTime: false});
+            
+            $('.datetimepicker').datetimepicker({pickTime: false, defaultDate: 'now'});
 
             $('.save').click(function () {
                 saveAchievement();

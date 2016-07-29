@@ -45,6 +45,16 @@
                     <input type="text" name="amount" class="form-control form-data">
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label class="control-label col-md-2">Payment Date</label>
+                <div class="col-md-4 input-append input-group datetimepicker">
+                    <input type="text" class="form-control form-data" disabled name="date" data-format="yyyy-MM-dd hh:mm:ss">
+                    <span class="add-on input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="control-label col-md-2">Comment</label>
@@ -67,6 +77,8 @@
     <script>
         $(function () {
             $('.search').select();
+            
+            $('.datetimepicker').datetimepicker("setDate", new Date());
 
             $('.save').click(function () {
                 payment();
@@ -76,8 +88,9 @@
                 var form = $('.form1').formobject();
                 if ($('.selectedID').val() !== "") {
                     form.id = $('.selectedID').val();
-                    var conditions = {amount: 'important|double'};
+                    var conditions = {amount: 'important|double', date: 'important'};
                     if ($('.form1').validate(conditions)) {
+                        console.log(form);
                         $.post('/student/payment', {form: form}, function (e) {
                             if (e !== '0') {
                                 $.notify.success("<b>Successfully Saved!</b>");
