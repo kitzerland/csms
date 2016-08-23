@@ -53,7 +53,7 @@ class SearchModel extends \Core\Model {
         $id = $params['id'];
 
         $str = "SELECT tblstudents.ID, `Index`, tblstudents.FirstName, tblstudents.LastName, tblstudents.Address, tblstudents.GuardianName, tblstudents.ContactNumber,"
-                . " tblstudents.GuardianContact, tblstudents.Email, tblstudentpayment.Date AS lpdt, DATE_FORMAT(tblstudentpayment.Date,'%Y-%m-%d') AS lpd"
+                . " tblstudents.GuardianContact, tblstudents.Email, tblstudentpayment.Date AS lpdt, DATE_FORMAT(tblstudentpayment.Date,'%Y-%m-%d') AS lpd, tblstudentpayment.PaymentMonth AS lpm"
                 . " FROM `tblstudents`"
                 . " LEFT JOIN tblstudentpayment ON tblstudents.ID = tblstudentpayment.StudentID"
                 . " WHERE tblstudents.ID = '{$id}'"

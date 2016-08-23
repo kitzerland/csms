@@ -19,6 +19,7 @@ class PaymentController extends \Core\Controller {
     }
 
     public function paymentAction() {
+        $this->route_params["form"]["paymentMonth"] = $this->route_params["form"]["paymentMonth"] . "-01";
         echo json_encode(PaymentModel::payment($this->route_params['form']));
     }
 

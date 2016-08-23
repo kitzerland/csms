@@ -45,7 +45,8 @@
                     </tr>
                     <tr>
                         <th style="width:100px;">#</th>
-                        <th>Date</th>
+                        <th>Invoice Date</th>
+                        <th>Payed Month</th>
                         <th>Amount</th>
                         <th style="width:100px;">Reprint</th>
                     </tr>
@@ -70,6 +71,7 @@
                     id: $(this).data('id'),
                     amount: $(this).data('amount'),
                     comment: $(this).data('comment'),
+                    paymentMonth: getYearMonth(new Date($(this).data('paymentmonth'))),
                     date: $(this).data('date')
                 };
                 $.redirectpost('/student/invoice', data);
@@ -84,8 +86,9 @@
                                 tbody += '<tr>';
                                 tbody += '<td>' + ++i + '</td>';
                                 tbody += '<td>' + k.date + '</td>';
+                                tbody += '<td>' + getYearMonth(new Date(k.pm)) + '</td>';
                                 tbody += '<td>' + k.amount + '</td>';
-                                tbody += '<td><button class="btn btn-default reprint" data-date="' + k.date + '" data-id="' + id + '" data-comment="' + k.comment + '" data-amount="' + k.amount + '" value="' + k.ID + '"><i class="fa fa-print"></i></button></td>';
+                                tbody += '<td><button class="btn btn-default reprint" data-paymentMonth="'+ k.pm +'" data-date="' + k.date + '" data-id="' + id + '" data-comment="' + k.comment + '" data-amount="' + k.amount + '" value="' + k.ID + '"><i class="fa fa-print"></i></button></td>';
                                 tbody += '</tr>';
                             });
                         }
@@ -110,7 +113,8 @@
                         $('.fname').html(e.FirstName);
                         $('.lname').html(e.LastName);
                         $('.addr').html(e.Address);
-                        $('.lpd').html(e.lpd);
+                        var lpm = (e.lpm === null) || (e.lpm === "") ? '' : getYearMonth(new Date(e.lpm));
+                        $('.lpd').html(lpm);
                         $('.paymentHisoty thead tr:first-child th').html(e.Index);
                         studentPaymentHistory(e.ID);
                     }

@@ -29,7 +29,7 @@
                         <th style="width: 50px;">#</th>
                         <th style="width: 180px;">Index Number</th>
                         <th>Name</th>
-                        <th style="width: 200px;">Last Payment Date</th>
+                        <th style="width: 200px;">Last Payment Month</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +44,7 @@
     <script>
         $(function () {
             $('.overdueList').scrollTableBody();
+            $('.datetimepicker input').val(getYearMonth(new Date()));
             $('.datetimepicker').datetimepicker({
                 format: "yyyy-MM",
                 viewMode: "months",
@@ -61,7 +62,8 @@
                                     tbody += '<td>' + ++i + '</td>';
                                     tbody += '<td>' + k.index + '</td>';
                                     tbody += '<td>' + k.fname + ' ' + k.lname + '</td>';
-                                    tbody += '<td>' + k.lpd + '</td>';
+                                    var lpm = (k.lpm === null) || (k.lpm === "") ? '' : getYearMonth(new Date(k.lpm));
+                                    tbody += '<td>' + lpm + '</td>';
                                     tbody += '</tr>';
                                 });
                             }

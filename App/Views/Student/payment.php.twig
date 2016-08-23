@@ -45,16 +45,16 @@
                     <input type="text" name="amount" class="form-control form-data">
                 </div>
             </div>
-            
             <div class="form-group">
-                <label class="control-label col-md-2">Payment Date</label>
+                <label class="control-label col-md-2">Payment Month</label>
                 <div class="col-md-4 input-append input-group datetimepicker">
-                    <input type="text" class="form-control form-data" disabled name="date" data-format="yyyy-MM-dd hh:mm:ss">
+                    <input type="text" class="form-control form-data" disabled name="paymentMonth" format="yyyy-MM">
                     <span class="add-on input-group-addon">
                         <i class="fa fa-calendar"></i>
                     </span>
                 </div>
             </div>
+
 
             <div class="form-group">
                 <label class="control-label col-md-2">Comment</label>
@@ -76,9 +76,16 @@
 {% block script %}
     <script>
         $(function () {
+
+            $('.datetimepicker input').val(getYearMonth(new Date()));
+
+            $('.datetimepicker').datetimepicker({
+                format: "yyyy-MM",
+                viewMode: "months",
+                minViewMode: "months"
+            });
+
             $('.search').select();
-            
-            $('.datetimepicker').datetimepicker("setDate", new Date());
 
             $('.save').click(function () {
                 payment();
@@ -88,11 +95,11 @@
                 var form = $('.form1').formobject();
                 if ($('.selectedID').val() !== "") {
                     form.id = $('.selectedID').val();
-                    var conditions = {amount: 'important|double', date: 'important'};
+                    var conditions = {amount: 'important|double'};
                     if ($('.form1').validate(conditions)) {
-                        console.log(form);
                         $.post('/student/payment', {form: form}, function (e) {
-                            if (e !== '0') {
+                            console.log(e);
+                            if (e != '0') {
                                 $.notify.success("<b>Successfully Saved!</b>");
                                 form.pid = e;
                                 cleartextbox();
@@ -130,7 +137,12 @@
                         $('.fname').html(e.FirstName);
                         $('.lname').html(e.LastName);
                         $('.addr').html(e.Address);
-                        $('.lpd').html(e.lpd);
+                        var lpm = (e.lpm === null) || (e.lpm === "") ? '' : getYearMonth(new Date(e.lpm));
+                        $('.lpd').html(lpm);
+                        if(e.lpm !== null){
+                            $('.datetimepicker input').val(getYearMonth(new Date(lpm).addMonths(1)));
+                        }
+                        $('.datetimepicker').datetimepicker('update');
                     }
                 }, 'json');
             }

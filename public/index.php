@@ -63,6 +63,10 @@ $router->add('student/payment-history', ['controller' => 'PaymentController', 'a
 $router->add('student/payment-overdue', ['controller' => 'PaymentController', 'action' => 'paymentOverdue', 'namespace' => 'Student']);
 
 
+$router->add('expenses/add-category', ['controller' => 'CategoriesController', 'action' => 'index', 'namespace' => 'Expences']);
+$router->add('expenses/add-expense', ['controller' => 'ExpencesController', 'action' => 'index', 'namespace' => 'Expences']);
+
+
 
 /**
  * Post Requests
@@ -84,5 +88,12 @@ $router->post('student/invoice', ['controller' => 'PaymentController', 'action' 
 
 $router->post('student/history', ['controller' => 'PaymentController', 'action' => 'paymentHistory', 'namespace' => 'Student']);
 $router->post('student/overdue', ['controller' => 'PaymentController', 'action' => 'overdue', 'namespace' => 'Student']);
+
+$router->post('expences/loadCategories', ['controller' => 'CategoriesController', 'action' => 'loadCategories', 'namespace' => 'Expences']);
+$router->post('expences/saveCategory', ['controller' => 'CategoriesController', 'action' => 'saveCategory', 'namespace' => 'Expences']);
+
+$router->post('expences/saveExpense', ['controller' => 'ExpencesController', 'action' => 'saveExpense', 'namespace' => 'Expences']);
+$router->post('expences/loadExpenses', ['controller' => 'ExpencesController', 'action' => 'loadExpenses', 'namespace' => 'Expences']);
+
 
 $router->dispatch($_SERVER['QUERY_STRING']);

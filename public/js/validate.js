@@ -78,6 +78,7 @@ $(function ($) {
         });
         function validator(s, c) {
             var cArr = c.split('|');
+            s = s || '';
             var results = {errors: 0, failedCondition: '', message: ''};
             $.each(cArr, function (i, v) {
                 var condition = $.trim(v);
@@ -235,17 +236,31 @@ $(function ($) {
         }
         function highlight(results) {
             var trackedElements = '';
+
             $.each(results.errorElements, function (e, c) {
                 var element = $('[name="' + e + '"]');
+                if ($(element).next().hasClass('chosen-container')) {
+                    $(element).next().css({'box-shadow': '0px 0px 6px #ff6400', 'border-color': '#ff8a3f'});
+                }
                 element.css({'box-shadow': 'inset 0px 0px 3px #ff6400', 'border-color': '#ff8a3f'});
                 if (e === Object.keys(results.errorElements)[Object.keys(results.errorElements).length - 1]) {
+                    if ($(element).next().hasClass('chosen-container')) {
+                        $(element).next().removeAttr('name');
+                        $(element).next().attr('name', e);
+                    }
                     trackedElements += '[name="' + e + '"]';
                 } else {
+                    if ($(element).next().hasClass('chosen-container')) {
+                        $(element).next().removeAttr('name');
+                        $(element).next().attr('name', e);
+                    }
                     trackedElements += '[name="' + e + '"],';
                 }
             });
+
             $(trackedElements).mouseover(function (e) {
                 var elementName = $(this).attr('name');
+
                 var message = '';
                 message = results.errorElements[elementName];
                 var div = '<div class="custom-validation-message" style="display: none; position:absolute; background-color:#333333; color: #999999; padding: 5px 10px 5px 10px; border-radius : 3px; box-shadow: 1px 1px 1px 1px #333333;">' + message + '</div>';
@@ -253,16 +268,8 @@ $(function ($) {
                 $('body').append(div);
 
 
-
-//                var scrollBottom = $(window).scrollTop() + $(window).height();
-//                var scb = $(document).height() - $(window).height() - $(window).scrollTop();
-//                var gap = Math.abs($(document).scrollTop() - scb);
-//                
-//                var logic = $(this).offset().top - $('.custom-validation-message').outerHeight() - 3 - $(window).scrollTop();
-//                console.log(this.getBoundingClientRect().top, $(window).scrollTop(), $(this).offset().top);
-                
                 // $('.custom-validation-message').offset({top: $(this).offset().top - $('.custom-validation-message').outerHeight() - 3 - $(window).scrollTop(), left: $(this).offset().left});
-                $('.custom-validation-message').offset({top: $(this).offset().top - $('.custom-validation-message').outerHeight() - 3 , left: $(this).offset().left});
+                $('.custom-validation-message').offset({top: $(this).offset().top - $('.custom-validation-message').outerHeight() - 3, left: $(this).offset().left});
                 $('.custom-validation-message').fadeIn(300).delay(1000).fadeOut(500);
             });
             $(trackedElements).mouseleave(function (e) {
